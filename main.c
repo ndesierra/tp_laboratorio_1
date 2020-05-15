@@ -1,3 +1,13 @@
+/*      TRABAJO PRACTICO N°1
+Titulo: Calculadora
+Alumno: de Sierra Mario Nicolas
+Comision: 1° G
+Materia: Programacion I/ LaboratorioI
+Profesor: Christian Baus
+Año: 2020
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "biblioteca_deSierra.h"
