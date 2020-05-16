@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <conio.h>
 #include "arrayEmployees.h"
 
 #define LEN 1000

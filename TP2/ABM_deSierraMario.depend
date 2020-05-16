@@ -17,3 +17,21 @@
 
 1589574607 c:\users\nico\desktop\tp2\abm_desierramario\arrayemployees.h
 
+1589668763 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	"arrayEmployees.h"
+
+1589671236 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp2\arrayemployees.h
+
+1589671029 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp2\arrayemployees.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	"arrayEmployees.h"
+

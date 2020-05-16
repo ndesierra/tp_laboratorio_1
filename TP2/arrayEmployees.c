@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <conio.h>
 #include "arrayEmployees.h"
 
 
@@ -124,7 +125,6 @@ int findEmployeeById(Employee* list, int len, int id)
 
 int addEmployees(Employee* list, int len, int id, char* name,char lastName[], float salary, int sector)
 {
-    //int longitud = STRING_LEN;
     int todoOk = 0;
     int indice = searchFree(list, len);
     Employee auxEmpleado;
@@ -140,29 +140,29 @@ int addEmployees(Employee* list, int len, int id, char* name,char lastName[], fl
     {
         auxEmpleado.id = id;
 
-        printf("Ingrese name: ");
-        fflush(stdin);
-        gets(name);
-        strlwr(name);
-        name[0] = toupper(name[0]);
-        strncpy(auxEmpleado.name, name, 50);
+        if(utn_getNombre(name, 51, "\nEnter name: ", "\nInvalid name, retype: ", 50)==0)
+        {
+            strlwr(name);
+            name[0] = toupper(name[0]);
+            strncpy(auxEmpleado.name, name, 50);
+        }
 
-        printf("Ingrese lastname: ");
-        fflush(stdin);
-        gets(lastName);
-        strlwr(lastName);
-        lastName[0] = toupper(lastName[0]);
-        strncpy(auxEmpleado.lastname, lastName, 50);
+        if(utn_getNombre(lastName, 51, "\nEnter lastname: ", "\nInvalid lastname, retype: ", 50)== 0)
+        {
+            strlwr(lastName);
+            lastName[0] = toupper(lastName[0]);
+            strncpy(auxEmpleado.lastname, lastName, 50);
+        }
 
-        printf("Ingrese salary: ");
-        fflush(stdin);
-        scanf("%f", &salary);
-        auxEmpleado.salary = salary;
+        if(utn_getNumeroFlotante(&salary,"\nEnter salary: ", "\nInvalid Salary, retype: ", 1, 500000, 50)== 0)
+        {
+            auxEmpleado.salary = salary;
+        }
 
-        printf("Ingrese sector: ");
-        fflush(stdin);
-        scanf("%d", &sector);
-        auxEmpleado.sector = sector;
+        if(utn_getNumero(&sector,"\nEnter the sector number: ", "\nInvalid number. Retype: ",1, 10, 50)== 0)
+        {
+            auxEmpleado.sector = sector;
+        }
 
         auxEmpleado.isEmpty = 0;
 
@@ -248,10 +248,11 @@ int modifyEmployee(Employee* list, int len)
 
             if( confirma == 's')
             {
-                printf("Enter the new name: ");
-                gets(nuevoNombre);
-                fflush(stdin);
-
+                if(utn_getNombre(nuevoNombre, 51, "\nEnter new name: ", "\nInvalid name, retype: ", 50)==0)
+                {
+                    strlwr(nuevoNombre);
+                    nuevoNombre[0] = toupper(nuevoNombre[0]);
+                }
                 strcpy(list[indice].name, nuevoNombre);
                 printf("The name has been successfully updated\n\n");
             }
@@ -267,9 +268,11 @@ int modifyEmployee(Employee* list, int len)
 
             if( confirma == 's')
             {
-                printf("Enter the new lastname: ");
-                gets(nuevoApellido);
-                fflush(stdin);
+                if(utn_getNombre(nuevoApellido, 51, "\nEnter new lastname: ", "\nInvalid lastname, retype: ", 50)==0)
+                {
+                    strlwr(nuevoApellido);
+                    nuevoNombre[0] = toupper(nuevoApellido[0]);
+                }
 
                 strcpy(list[indice].lastname, nuevoApellido);
                 printf("The lastname has been successfully updated\n\n");
@@ -286,10 +289,10 @@ int modifyEmployee(Employee* list, int len)
 
             if( confirma == 's')
             {
-                printf("Enter the new salary: ");
-                scanf("%f", &nuevoSueldo);
-
-                list[indice].salary = nuevoSueldo;
+                if(utn_getNumeroFlotante(&nuevoSueldo,"\nEnter  new salary: ", "\nInvalid Salary, retype: ", 1, 500000, 50)== 0)
+                {
+                    list[indice].salary = nuevoSueldo;
+                }
                 printf("The salary has been successfully updated\n\n");
             }
             else
@@ -304,10 +307,10 @@ int modifyEmployee(Employee* list, int len)
 
             if( confirma == 's')
             {
-                printf("Enter the new sector: ");
-                scanf("%d", &nuevoSector);
-
-                list[indice].sector = nuevoSector;
+                if(utn_getNumero(&nuevoSector,"\nEnter the sector number: ", "\nInvalid number. Retype: ",1, 10, 50)== 0)
+                {
+                    list[indice].sector = nuevoSector;
+                }
                 printf("The sector has been successfully updated\n\n");
             }
             else
@@ -394,6 +397,9 @@ void informesEmpleados(Employee* list, int len)
         case 3:
             seguir = 'n';
             break;
+        default:
+            printf("Invalid option. Retype: ");
+            break;
         }
     }
     while (seguir == 's');
@@ -438,5 +444,212 @@ int totalPromedioSalarios(Employee* list, int len)
     }
 
     system("pause");
+    return retorno;
+}
+
+int esNumerica(char* cadena, int limite)
+{
+    int retorno = 1;
+    int i;
+    for(i=0; i<limite && cadena[i] != '\0'; i++)
+    {
+        if(i==0 && (cadena[i] == '+' || cadena[i] == '-'))
+        {
+            continue;
+        }
+        if(cadena[i] > '9' || cadena[i] < '0')
+        {
+            retorno = 0;
+            break;
+        }
+
+    }
+
+    return retorno;
+}
+
+int getInt(int* pResultado)
+{
+    int retorno=-1;
+    char bufferString[50];
+    if(	pResultado != NULL &&
+            getString(bufferString,sizeof(bufferString)) == 0 && esNumerica(bufferString,sizeof(bufferString)))
+    {
+        retorno=0;
+        *pResultado = atoi(bufferString) ;
+
+    }
+    return retorno;
+}
+
+int utn_getNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo, int maximo, int reintentos)
+{
+    int retorno = -1;
+    int bufferInt;
+    do
+    {
+        printf("%s",mensaje);
+        if(	getInt(&bufferInt) == 0 &&
+                bufferInt >= minimo &&
+                bufferInt <= maximo)
+        {
+            retorno = 0;
+            *pResultado = bufferInt;
+            break;
+        }
+        printf("%s",mensajeError);
+        reintentos--;
+    }
+    while(reintentos>=0);
+
+    return retorno;
+}
+int getString(char* cadena, int longitud)
+{
+    int retorno=-1;
+    char bufferString[4096];
+
+    if(cadena != NULL && longitud > 0)
+    {
+        fflush(stdin);
+        if(fgets(bufferString,sizeof(bufferString),stdin) != NULL)
+        {
+            if(bufferString[strlen(bufferString)-1] == '\n')
+            {
+                bufferString[strlen(bufferString)-1] = '\0';
+            }
+            if(strlen(bufferString) <= longitud)
+            {
+                strncpy(cadena,bufferString,longitud);
+                retorno=0;
+            }
+        }
+    }
+    return retorno;
+}
+
+int esFlotante(char* cadena)
+{
+    int i=0;
+    int retorno = 1;
+    int contadorPuntos=0;
+
+    if(cadena != NULL && strlen(cadena) > 0)
+    {
+        for(i=0 ; cadena[i] != '\0'; i++)
+        {
+            if(i==0 && (cadena[i] == '-' || cadena[i] == '+'))
+            {
+                continue;
+            }
+            if(cadena[i] < '0' || cadena[i] > '9' )
+            {
+                if(cadena[i] == '.' && contadorPuntos == 0)
+                {
+                    contadorPuntos++;
+                }
+                else
+                {
+                    retorno = 0;
+                    break;
+                }
+            }
+        }
+    }
+    return retorno;
+}
+
+int getFloat(float* pResultado)
+{
+    int retorno=-1;
+    char buffer[64];
+
+    if(pResultado != NULL)
+    {
+        if(getString(buffer,sizeof(buffer))==0 && esFlotante(buffer))
+        {
+            *pResultado = atof(buffer);
+            retorno = 0;
+        }
+    }
+    return retorno;
+}
+
+int utn_getNumeroFlotante(float* pResultado, char* mensaje, char* mensajeError,	float minimo, float maximo, int reintentos)
+{
+    float bufferFloat;
+    int retorno = -1;
+    while(reintentos>=0)
+    {
+        reintentos--;
+        printf("%s",mensaje);
+        if(getFloat(&bufferFloat) == 0)
+        {
+            if(bufferFloat >= minimo && bufferFloat <= maximo)
+            {
+                *pResultado = bufferFloat;
+                retorno = 0;
+                break;
+            }
+        }
+        printf("%s",mensajeError);
+    }
+    return retorno;
+}
+
+int getNombre(char* pResultado, int longitud)
+{
+    int retorno=-1;
+    char buffer[4096];
+
+    if(pResultado != NULL)
+    {
+        if(	getString(buffer,sizeof(buffer))==0 &&
+                esNombre(buffer,sizeof(buffer)) &&
+                strlen(buffer)<longitud)
+        {
+            strncpy(pResultado,buffer,longitud);
+            retorno = 0;
+        }
+    }
+    return retorno;
+}
+
+int esNombre(char* cadena,int longitud)
+{
+    int i=0;
+    int retorno = 1;
+
+    if(cadena != NULL && longitud > 0)
+    {
+        for(i=0 ; cadena[i] != '\0' && i < longitud; i++)
+        {
+            if((cadena[i] < 'A' || cadena[i] > 'Z' ) &&
+                    (cadena[i] < 'a' || cadena[i] > 'z' ))
+            {
+                retorno = 0;
+                break;
+            }
+        }
+    }
+    return retorno;
+}
+int utn_getNombre(char* pResultado, int longitud,char* mensaje, char* mensajeError, int reintentos)
+{
+    char bufferString[4096];
+    int retorno = -1;
+    while(reintentos>=0)
+    {
+        reintentos--;
+        printf("%s",mensaje);
+        if(getNombre(bufferString,sizeof(bufferString)) == 0 &&
+                strlen(bufferString) < longitud )
+        {
+            strncpy(pResultado,bufferString,longitud);
+            retorno = 0;
+            break;
+        }
+        printf("%s",mensajeError);
+    }
     return retorno;
 }
