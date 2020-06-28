@@ -1,0 +1,59 @@
+# depslib dependency file v1.0
+1593301683 source:c:\users\nico\desktop\tp4\abm_jugadores\jugador.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	"Jugador.h"
+
+1593311127 source:c:\users\nico\desktop\tp4\abm_jugadores\controller.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<conio.h>
+	"LinkedList.h"
+	"Jugador.h"
+	"parser.h"
+
+1593202402 c:\users\nico\desktop\tp4\abm_jugadores\linkedlist.h
+
+1593289005 c:\users\nico\desktop\tp4\abm_jugadores\jugador.h
+
+1593280776 source:c:\users\nico\desktop\tp4\abm_jugadores\linkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1593310728 source:c:\users\nico\desktop\tp4\abm_jugadores\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	"LinkedList.h"
+	"Jugador.h"
+	"Controller.h"
+	"Parser.h"
+
+1593306008 source:c:\users\nico\desktop\tp4\abm_jugadores\utn.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<conio.h>
+
+1593309000 source:c:\users\nico\desktop\tp4\abm_jugadores\parser.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	"LinkedList.h"
+	"Jugador.h"
+
+1593283110 c:\users\nico\desktop\tp4\abm_jugadores\controller.h
+
+1593283529 c:\users\nico\desktop\tp4\abm_jugadores\parser.h
+
