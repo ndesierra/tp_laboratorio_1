@@ -35,24 +35,29 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Controller.h" />
-		<Unit filename="Jugador.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Jugador.h" />
 		<Unit filename="LinkedList.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="LinkedList.h" />
+		<Unit filename="jugador.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="jugador.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menu.h" />
 		<Unit filename="parser.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="parser.h" />
-		<Unit filename="utn.c">
+		<Unit filename="validaciones.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="validaciones.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

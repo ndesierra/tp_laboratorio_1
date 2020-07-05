@@ -1,144 +1,110 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <conio.h>
 #include "LinkedList.h"
-#include "Jugador.h"
 #include "Controller.h"
-#include "Parser.h"
+#include "jugador.h"
+#include "menu.h"
 
 int main()
 {
-
-int menuPrincipal();
-
-    char continuar = 's';
+    char seguir = 's';
     LinkedList* listaJugadores = ll_newLinkedList();
+    LinkedList* listaClonada = ll_newLinkedList();
 
-    do{
-        switch(menuPrincipal())
+    controller_loadFromText("player.csv",listaJugadores);
+
+    do
+    {
+        switch(menu())
         {
-            case 1:
-                system("cls");
-                if(controller_loadFromText("player.csv", listaJugadores))
-                {
-                   printf("Jugadores cargados correctamente\n");
-                }
-                else
-                {
-                    printf("Problemas para cargar los Jugadores\n");
-                }
-                system("pause");
-                break;
-            case 2:
-                system("cls");
-                if(controller_loadFromBinary("player.bin", listaJugadores))
-                {
-                    printf("Jugadores cargados correctamente\n");
-                }
-                else
-                {
-                    printf("Problemas para cargar los Jugadores\n");
-                }
-                system("pause");
-                break;
-            case 3:
-                if(controller_addJugador(listaJugadores))
-                {
-                    printf("Jugador registrado con exito.\n");
-                }
-                system("pause");
-                break;
-            case 4:
-                if(controller_editJugador(listaJugadores))
-                {
-                    printf("Jugador editado con exito.\n");
-                }
-                system("pause");
-                break;
-            case 5:
-                if(controller_removeJugador(listaJugadores))
-                {
-                    printf("Jugador eliminado con exito.\n");
-                }
-                system("pause");
+        case 1:
+            controller_addJugador(listaJugadores);
             break;
-            case 6:
-                system("cls");
-                if(!controller_ListJugador(listaJugadores))
-                {
-                    printf("No hay Jugadores que listar\n");
-                }
-                system("pause");
-                break;
-            case 7:
+        case 2:
+            if( !ll_isEmpty(listaJugadores))
+            {
+                controller_editJugador(listaJugadores);
+            }
+            else
+            {
+                printf("No hay jugadores que editar\n");
+            }
+            system("pause");
+            break;
+        case 3:
+            if( !ll_isEmpty(listaJugadores))
+            {
+                controller_removeJugador(listaJugadores);
+            }
+            else
+            {
+                printf("No hay jugadores que remover\n");
+            }
+            system("pause");
+            break;
+        case 4:
+            if( !ll_isEmpty(listaJugadores))
+            {
+                controller_ListJugador(listaJugadores);
+            }
+            else
+            {
+                printf("No hay jugadores que listar\n");
+            }
+            system("pause");
+            break;
+        case 5:
+            if( !ll_isEmpty(listaJugadores))
+            {
                 controller_sortJugador(listaJugadores);
-                system("pause");
-                break;
-            case 8:
-                controller_FiltJugador(listaJugadores);
-                printf("8. Informes\n");
-                system("pause");
-                break;
-            case 9:
-                if(controller_saveAsText("player.csv" , listaJugadores))
-                {
-                    printf("Problemas para guardar el archivo\n");
-                }
-                else
-                {
-                    printf("Documento guardado exitosamente\n");
-                }
-                system("pause");
+            }
+            else
+            {
+                printf("No hay jugadores que ordenar\n");
+            }
+            system("pause");
 
-                break;
-            case 10:
-                if(controller_saveAsBinary("player.bin" , listaJugadores))
-                {
-                    printf("Problemas para guardar el archivo\n");
-                }
-                else
-                {
-                    printf("Documento guardado exitosamente\n");
-                }
-                system("pause");
+            break;
+        case 6:
+            if( !ll_isEmpty(listaJugadores))
+            {
+                controller_saveAsText("player.csv",listaJugadores);
+                controller_saveAsBinary("player.bin",listaJugadores);
+                printf("Guardado exitoso\n");
+            }
+            else
+            {
+                printf("No hay jugadores que guardar\n");
+            }
+            system("pause");
+            break;
+        case 7:
+            listaClonada = ll_clone(listaJugadores);
+            if ( listaClonada != NULL || ll_containsAll(listaJugadores, listaClonada) == 1 )
+            {
+                controller_ListJugador(listaClonada);
+                controller_saveAsText("playerAux.csv",listaClonada);
+                controller_saveAsBinary("playerAux.bin",listaClonada);
 
-                break;
-            case 11:
-                 continuar = 'n';
-                break;
-            default:
-                 printf("Opcion invalida. Reingrese una opcion\n");
-                 system("pause");
-                break;
+                printf("Copia de seguridad guardada con exito\n");
+            }
+            else
+            {
+                printf("Fallo al intentar generar copia de seguridad\n");
+            }
+            system("pause");
+            break;
+        case 8:
+            seguir = 'n';
+            ll_deleteLinkedList(listaJugadores);
+            break;
+        default:
+            printf("Ha ingresado una opcion incorrecta. Reintente\n");
+            system("pause");
+            break;
         }
-        system("cls");
-
-    }while(continuar == 's');
+    }
+    while(seguir == 's');
 
     return 0;
 }
-int menuPrincipal()
-{
-    int opcion = 0;
-
-    printf("***Menu de opciones***\n\n");
-    printf(" 1. Cargar los datos de los jugadores desde el archivo player.csv(modo texto)\n");
-    printf(" 2. Cargar los datos de los jugadores desde el archivo player.bin(modo binario)\n");
-    printf(" 3. Alta de jugador\n");
-    printf(" 4. Modificar datos de jugador\n");
-    printf(" 5. Baja de jugador\n");
-    printf(" 6. Listar jugadores\n");
-    printf(" 7. Ordenar jugadores\n");
-    printf(" 8. Informes\n");
-    printf(" 9. Guardar los datos de los jugadores en el archivo player.csv (modo texto).\n");
-    printf("10. Guardar los datos de los jugadores en el archivo player.bin (modo binario).\n");
-    printf("11. Salir\n\n");
-    printf("Elija una opcion: ");
-    scanf("%d", &opcion);
-    system("cls");
-
-    return opcion;
-}
-

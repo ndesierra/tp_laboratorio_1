@@ -57,3 +57,193 @@
 
 1593283529 c:\users\nico\desktop\tp4\abm_jugadores\parser.h
 
+1593355191 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp4\abm_jugadores\jugador.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	"Jugador.h"
+
+1593355148 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp4\abm_jugadores\jugador.h
+
+1593280776 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp4\abm_jugadores\linkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1593202402 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp4\abm_jugadores\linkedlist.h
+
+1593311547 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp4\abm_jugadores\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	"LinkedList.h"
+	"Jugador.h"
+	"Controller.h"
+	"Parser.h"
+
+1593283110 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp4\abm_jugadores\controller.h
+
+1593283529 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp4\abm_jugadores\parser.h
+
+1593309000 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp4\abm_jugadores\parser.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	"LinkedList.h"
+	"Jugador.h"
+
+1593306008 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp4\abm_jugadores\utn.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<conio.h>
+
+1593355148 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\calculadora\tp4\abm_jugadores\controller.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<conio.h>
+	"LinkedList.h"
+	"Jugador.h"
+	"parser.h"
+
+1593913729 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\controller.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"LinkedList.h"
+	"jugador.h"
+	"Controller.h"
+	"validaciones.h"
+	"parser.h"
+
+1593917253 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\linkedlist.h
+
+1593914467 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\jugador.h
+	"LinkedList.h"
+
+1593906865 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\controller.h
+
+1593895489 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\validaciones.h
+
+1593904392 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\parser.h
+	"LinkedList.h"
+
+1593870701 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\linkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1593916858 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"jugador.h"
+	"menu.h"
+
+1593896880 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\menu.h
+
+1593916436 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\menu.c
+	<stdio.h>
+	<stdlib.h>
+	"menu.h"
+
+1593904392 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"jugador.h"
+
+1593895489 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\validaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"validaciones.h"
+
+1593914823 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp4\abm_jugadores\jugador.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"jugador.h"
+	"validaciones.h"
+	"controller.h"
+	"menu.h"
+
+1593964843 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\jugador.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"jugador.h"
+	"validaciones.h"
+	"controller.h"
+	"menu.h"
+
+1593914467 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\jugador.h
+	"LinkedList.h"
+
+1593917253 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\linkedlist.h
+
+1593895489 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\validaciones.h
+
+1593906865 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\controller.h
+
+1593964957 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\menu.h
+
+1593870701 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\linkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1593916436 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\menu.c
+	<stdio.h>
+	<stdlib.h>
+	"menu.h"
+
+1593904392 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"jugador.h"
+
+1593895489 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\validaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"validaciones.h"
+
+1593963753 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"jugador.h"
+	"menu.h"
+
+1593963882 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\controller.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"LinkedList.h"
+	"jugador.h"
+	"Controller.h"
+	"validaciones.h"
+	"parser.h"
+
+1593904392 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp1\tp4\abm_jugadores\parser.h
+	"LinkedList.h"
+

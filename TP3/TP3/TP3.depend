@@ -1,0 +1,66 @@
+# depslib dependency file v1.0
+1593895489 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+	"Controller.h"
+	"validaciones.h"
+	"parser.h"
+	<ctype.h>
+	<string.h>
+
+1593398325 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\linkedlist.h
+
+1593915556 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\employee.h
+	"LinkedList.h"
+
+1593896051 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\controller.h
+
+1593895489 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\validaciones.h
+
+1593871709 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\parser.h
+	"LinkedList.h"
+
+1593870701 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\linkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1593896880 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"menu.h"
+
+1593895489 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1593895489 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\validaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"validaciones.h"
+
+1593896880 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\employee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Employee.h"
+	"validaciones.h"
+	"controller.h"
+	"menu.h"
+
+1593896880 c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\menu.h
+
+1593896880 source:c:\users\nico\desktop\programacion i - laboratorio i\calculadora\tp3\tp3\menu.c
+	<stdio.h>
+	<stdlib.h>
+	"menu.h"
+

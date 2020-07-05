@@ -1,260 +1,312 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <conio.h>
+#include <string.h>
 #include "LinkedList.h"
-#include "Jugador.h"
+#include "jugador.h"
+#include "Controller.h"
+#include "validaciones.h"
 #include "parser.h"
 
-/** \brief Carga los datos de los empleados desde el archivo player.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
+
 int controller_loadFromText(char* path, LinkedList* pArrayListJugador)
 {
     int retorno = 0;
+    FILE* pFile;
 
-    FILE* f;
-
-    if(path != NULL && pArrayListJugador!= NULL)
+    if(path != NULL && pArrayListJugador != NULL)
     {
-        f= fopen(path, "r");
-        if( f != NULL)
+        pFile = fopen(path, "r");
+        if(pFile != NULL)
         {
-            if(parser_JugadorFromText(f,pArrayListJugador))
+            if( parser_JugadorFromText(pFile, pArrayListJugador))
             {
                 retorno = 1;
+                printf("Se cargaron correctamente los jugadores\n");
             }
-            fclose(f);
+            else
+            {
+                printf("Error al cargar los jugadores\n");
+            }
+            fclose(pFile);
+        }
+        else
+        {
+            printf("No pudo abrirse el archivo\n");
         }
     }
+
     return retorno;
 }
 
-/** \brief Carga los datos de los empleados desde el archivo player.bin (modo binario).
- *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
 int controller_loadFromBinary(char* path, LinkedList* pArrayListJugador)
 {
     int retorno = 0;
+    FILE* pFile;
 
-    FILE* f;
-
-    if(path != NULL && pArrayListJugador!= NULL)
+    if(path!=NULL && pArrayListJugador!=NULL)
     {
-        f = fopen(path, "rb");
-        if( f != NULL)
+        pFile = fopen(path, "rb");
+        if( pFile != NULL)
         {
-            retorno = parser_JugadorFromBinary(f,pArrayListJugador);
-            fclose(f);
+            if(parser_JugadorFromBinary(pFile,pArrayListJugador))
+            {
+                retorno = 1;
+                printf("Se cargaron correctamente los jugadores\n");
+            }
+            else
+            {
+                printf("Error al cargar los jugadores\n");
+            }
         }
+        else
+        {
+            printf("No pudo abrirse el archivo\n");
+        }
+        fclose(pFile);
     }
     return retorno;
 }
 
-/** \brief Alta de Jugadores
- *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
 int controller_addJugador(LinkedList* pArrayListJugador)
 {
-    Jugador* auxJugador;
     int retorno = 0;
-    int* id = 36;
-    char apellido[128];
-    char posicion[128];
-    float* valor;
+    int id;
+    char apellido[50];
+    char posicion[50];
+    float valor;
+    char idStr[20];
+    char valorStr[20];
 
-    if(utn_getNombre(apellido, 50, "Ingrese el apellido del jugador: \n", "\nEl apellido contiene caracteres invalidos. Por favor, reigrese: ", 50) &&
-    utn_getNombre(posicion, 50, "Ingrese la posicion del jugador: (Arquero-Defensor-Volante-Delantero)\n", "\nLa posicion no es valida.", 50)&&
-    utn_getNumeroFlotante(valor, "Ingrese el valor del pase del jugador (50000 | 150000): ", "\nEl valor ingresado no es valido",50000,150000, 50))
+    jugador* auxJugador;
+
+    system("cls");
+    printf("**** Alta de jugador **** \n\n");
+
+    if ( pArrayListJugador != NULL)
     {
-        if(auxJugador != NULL)
+        utn_getNombre(apellido, 49,"\nIngrese el apellido: ", "\nEl apellido solo puede contener letras y debe tener una longitud menor a 50. Reintente\n",  10);
+        utn_getNombre(posicion, 49,"\nIngrese la posicion: ", "\nLa posicion solo puede contener letras y debe tener una longitud menor a 50. Reintente\n",  10);
+        utn_getNumeroFlotante(&valor, "\nIngrese el valor: ", "\nEl valor debe ser un numero entre 1 y 500000.\n", 1, 500000, 10);
+
+        obtenerId(&id);
+        strlwr(apellido);
+        apellido[0]= toupper(apellido[0]);
+        strlwr(posicion);
+        posicion[0]= toupper(posicion[0]);
+        itoa(valor, valorStr, 10);
+        itoa(id, idStr, 10);
+        auxJugador = jugador_newParametros(idStr, apellido, posicion, valorStr);
+        if (auxJugador != NULL)
         {
-        id++;
-        jugador_setId(auxJugador, id);
-        jugador_setApellido(auxJugador, apellido);
-        jugador_setPosicion(auxJugador, posicion);
-        jugador_setValor(auxJugador, valor);
-        ll_add(pArrayListJugador,auxJugador);
-        retorno = 1;
-        printf("Se ha dado de alta al jugador con exito\n");
+            ll_add(pArrayListJugador, auxJugador);
+            printf("\nAlta exitosa\n");
+            actualizarId(id);
+            retorno = 1;
         }
     }
+    else
+    {
+        printf("\nNo se pudo dar de alta al jugador\n");
+    }
+    system("pause");
     return retorno;
 }
 
-/** \brief Modificar datos de Jugador
- *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
 int controller_editJugador(LinkedList* pArrayListJugador)
 {
     int retorno = 0;
+    int id;
+    int indice;
 
+    system("cls");
+
+    if ( pArrayListJugador != NULL)
+    {
+        controller_ListJugador(pArrayListJugador);
+        utn_getNumero(&id, "\nIngrese el ID del jugador a modificar: ","\nEl id debe debe ser un numero entre 1 y 1000", 1, 1000, 10);
+
+        indice = buscarJugadorPorId(pArrayListJugador, id);
+
+        if(indice != 0)
+        {
+            system("cls");
+            printf("\nEl jugador a modificar es:  \n\n");
+
+            printf("\n  Id              Apellido            Posicion     Valor \n");
+            printf("-----------------------------------------------------------\n");
+
+            jugador_mostrar((jugador*) ll_get(pArrayListJugador,indice));
+            modificarJugador((jugador*) ll_get(pArrayListJugador,indice));
+            retorno = 1;
+        }
+        else
+        {
+            printf("No hay jugadores con el id: %d\n",id);
+            system("pause");
+        }
+    }
     return retorno;
 }
 
-/** \brief Baja de Jugador
- *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
 int controller_removeJugador(LinkedList* pArrayListJugador)
 {
     int retorno = 0;
-
-    if( pArrayListJugador != NULL)
-    {
-        jugador_delete(pArrayListJugador);
-        retorno = 1;
-    }
-
-    return retorno;
-}
-
-/** \brief Listar Jugadores
- *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
-int controller_ListJugador(LinkedList* pArrayListJugador)
-{
-    int retorno = 0;
-    Jugador* auxJugador;
-    int flag = 0;
-    int tam;
+    int indice;
+    int id;
+    char confirma;
 
     if(pArrayListJugador != NULL)
     {
-        retorno = 1;
-        tam = ll_len(pArrayListJugador);
-        printf("ID   APELLIDO   POSICION   VALOR\n________________________________\n");
-        for(int i=0; i < tam; i++)
-        {
-            auxJugador = (Jugador*) ll_get(pArrayListJugador,i);
-            if(auxJugador != NULL)
+        controller_ListJugador(pArrayListJugador);
+
+        if(utn_getNumero(&id,"\nIngrese el id del jugador a eliminar: ","\nEl id debe debe ser un numero entre 1 y 1000\n",1,1000,10))
             {
-                mostrarJugador(auxJugador);
+                indice = buscarJugadorPorId(pArrayListJugador, id);
+
+                if(indice!= 0)
+                {
+                    printf("El jugador a eliminar es el siguiente: \n\n");
+                    printf("\n  Id              Apellido            Posicion     Valor \n");
+                    printf("-----------------------------------------------------------\n");
+
+                    jugador_mostrar((jugador*) ll_get(pArrayListJugador,indice));
+
+                    printf("Esta seguro que desea dar de baja al jugador?  [s/n] ");
+                    fflush(stdin);
+                    scanf("%c", &confirma);
+
+                    if (confirma == 's')
+                    {
+                        ll_remove(pArrayListJugador, indice);
+                        printf("\nBaja exitosa\n");
+                        retorno = 1;
+                    }
+                    else
+                    {
+                        printf("Se ha cancelado la operacion\n");
+                    }
+                }
+                else
+                {
+                    printf("No hay jugadores con el id: %d\n",id);
+                    system("pause");
+                }
+            }
+    }
+    else
+    {
+        printf("No hay jugadores en la lista\n");
+        retorno = -1;
+    }
+    return retorno;
+}
+
+int controller_ListJugador(LinkedList* pArrayListJugador)
+{
+    int retorno = 0;
+    int tam;
+    int flag = 0;
+    jugador* auxJugador;
+
+    if( pArrayListJugador != NULL)
+    {
+        printf("\n  Id              Apellido            Posicion     Valor \n");
+        printf("-----------------------------------------------------------\n");
+
+        tam = ll_len(pArrayListJugador);
+
+        for(int i=0; i< tam; i++)
+        {
+            auxJugador = (jugador*) ll_get(pArrayListJugador, i);
+            if (  auxJugador != NULL )
+            {
+                jugador_mostrar( auxJugador );
+                retorno = 1;
                 flag = 1;
             }
         }
         if(flag == 0)
         {
-            printf("No hay jugadores en el plantel\n");
+            printf("\nNo hay jugadores que mostrar\n");
         }
     }
-
     return retorno;
 }
 
-/** \brief Ordenar Jugadores
- *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
 int controller_sortJugador(LinkedList* pArrayListJugador)
 {
     int retorno = 0;
 
+    if( pArrayListJugador != NULL)
+    {
+        ordenarJugador( pArrayListJugador);
+        retorno = 1;
+    }
     return retorno;
 }
 
-/** \brief Guarda los datos de los Jugadores en el archivo player.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
 int controller_saveAsText(char* path, LinkedList* pArrayListJugador)
 {
     int retorno = 0;
-    Jugador* auxJugador;
-    FILE* f;
+    int id;
+    char apellido[50];
+    char posicion[50];
+    float valor;
     int tam;
 
-    f = fopen(path, "w");
-    if(f != NULL)
+    FILE* f = NULL;
+    jugador* auxJugador;
+
+    if(path != NULL &&  pArrayListJugador != NULL)
     {
-        tam= ll_len(pArrayListJugador);
-        fprintf(f,"Id   Apellido   Posicion   Valor \n");
-        for (int i =0; i<tam; i++)
+        f = fopen(path,"w");
+        fprintf(f,"\nId,Apellido,Posicion,Valor\n");
+        tam =  ll_len(pArrayListJugador);
+
+        for (int i=0; i<tam; i++)
         {
-            auxJugador = (Jugador*) ll_get(pArrayListJugador, i);
+            auxJugador = (jugador*) ll_get(pArrayListJugador, i);
             if (auxJugador !=NULL)
             {
-                fprintf(f, "%d,%s,%s,%f\n", auxJugador->id, auxJugador->apellido, auxJugador->posicion, auxJugador->valor);
+                jugador_getId(auxJugador, &id);
+                jugador_getApellido(auxJugador, apellido);
+                jugador_getPosicion(auxJugador, posicion);
+                jugador_getValor(auxJugador, &valor);
+
+                fprintf(f, "%d,%s,%s,%.2f\n", id, apellido, posicion, valor);
                 retorno = 1;
             }
         }
         fclose(f);
+        ll_clear(pArrayListJugador);
     }
-
     return retorno;
 }
 
-/** \brief Guarda los datos de los Jugadores en el archivo player.bin (modo binario).
- *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
 int controller_saveAsBinary(char* path, LinkedList* pArrayListJugador)
 {
     int retorno = 0;
-    Jugador* auxJugador;
-    FILE* f;
     int tam;
+    FILE* f = NULL;
+    jugador* auxJugador;
 
-    f = fopen(path, "wb");
-    if(f != NULL)
+    if(path != NULL &&  pArrayListJugador != NULL)
     {
-        tam= ll_len(pArrayListJugador);
-        for (int i =0; i<tam; i++)
+        f = fopen(path,"wb");
+        tam =  ll_len(pArrayListJugador);
+
+        for (int i=0; i<tam; i++)
         {
-            auxJugador = (Jugador*) ll_get(pArrayListJugador, i);
-            if (auxJugador !=NULL)
+            auxJugador = (jugador*) ll_get(pArrayListJugador, i);
+            if (auxJugador != NULL)
             {
-                fwrite(auxJugador, sizeof(Jugador), 1, f);
+                fwrite(auxJugador, sizeof(jugador), 1, f);
                 retorno = 1;
             }
         }
         fclose(f);
+        ll_clear(pArrayListJugador);
     }
-
-    return retorno;
-}
-
-/** \brief Filtrar Jugadores
- *
- * \param pArrayListJugador LinkedList*
- * \return int
- *
- */
-int controller_FiltJugador(LinkedList* pArrayListJugador)
-{
-    int retorno = 0;
-
     return retorno;
 }
